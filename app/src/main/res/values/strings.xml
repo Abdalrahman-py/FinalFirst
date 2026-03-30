@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">FinalFirst</string>
+    <string name="tab_contacts">جهات الاتصال</string>
+    <string name="tab_add">إضافة جهة</string>
+    <string name="hint_name">الاسم</string>
+    <string name="hint_phone">رقم الهاتف</string>
+    <string name="btn_add">إضافة جهة الاتصال</string>
+    <string name="msg_added">تم إضافة جهة الاتصال</string>
+    <string name="msg_duplicate">الرقم موجود مسبقاً</string>
+    <string name="msg_empty_fields">يرجى ملء جميع الحقول</string>
+    <string name="notif_title">جهات الاتصال</string>
+    <string name="notif_text">تم اضافة رقم جديد</string>
+</resources>
