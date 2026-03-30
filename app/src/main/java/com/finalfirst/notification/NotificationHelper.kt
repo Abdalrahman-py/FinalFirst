@@ -5,6 +5,7 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.content.pm.PackageManager
+import android.os.Build
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -19,6 +20,7 @@ class NotificationHelper(private val context: Context) {
     }
 
     fun createChannel() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) return
         val channel = NotificationChannel(
             CHANNEL_ID,
             CHANNEL_NAME,
@@ -38,12 +40,12 @@ class NotificationHelper(private val context: Context) {
             .build()
 
         val manager = NotificationManagerCompat.from(context)
-        if (ActivityCompat.checkSelfPermission(
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+            ActivityCompat.checkSelfPermission(
                 context,
                 Manifest.permission.POST_NOTIFICATIONS
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            manager.notify(NOTIFICATION_ID, notification)
-        }
+            ) != PackageManager.PERMISSION_GRANTED
+        ) return
+        manager.notify(NOTIFICATION_ID, notification)
     }
 }
