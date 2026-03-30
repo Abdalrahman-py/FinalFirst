@@ -8,7 +8,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.finalfirst.contacts.ContactsImporter
 import com.finalfirst.databinding.ActivityMainBinding
 import com.finalfirst.notification.NotificationHelper
 import com.finalfirst.ui.adapter.ViewPagerAdapter
@@ -72,7 +71,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun importContacts() {
-        val contacts = ContactsImporter(this).getPhoneContacts()
-        viewModel.importFromPhone(contacts)
+        viewModel.importFromPhone(applicationContext)
     }
 }

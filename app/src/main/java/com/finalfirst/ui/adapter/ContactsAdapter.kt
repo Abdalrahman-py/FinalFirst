@@ -2,17 +2,22 @@ package com.finalfirst.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.finalfirst.data.local.Contact
 import com.finalfirst.databinding.ItemContactBinding
 
-class ContactsAdapter : RecyclerView.Adapter<ContactsAdapter.ContactViewHolder>() {
+class ContactsAdapter : ListAdapter<Contact, ContactsAdapter.ContactViewHolder>(DIFF_CALLBACK) {
 
-    private var contacts = emptyList<Contact>()
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Contact>() {
+            override fun areItemsTheSame(oldItem: Contact, newItem: Contact): Boolean =
+                oldItem.id == newItem.id
 
-    fun submitList(list: List<Contact>) {
-        contacts = list
-        notifyDataSetChanged()
+            override fun areContentsTheSame(oldItem: Contact, newItem: Contact): Boolean =
+                oldItem == newItem
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder {
@@ -21,10 +26,8 @@ class ContactsAdapter : RecyclerView.Adapter<ContactsAdapter.ContactViewHolder>(
     }
 
     override fun onBindViewHolder(holder: ContactViewHolder, position: Int) {
-        holder.bind(contacts[position])
+        holder.bind(getItem(position))
     }
-
-    override fun getItemCount() = contacts.size
 
     class ContactViewHolder(private val binding: ItemContactBinding) :
         RecyclerView.ViewHolder(binding.root) {

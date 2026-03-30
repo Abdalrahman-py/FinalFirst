@@ -36,6 +36,8 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
+
+
     buildFeatures {
         viewBinding = true
     }

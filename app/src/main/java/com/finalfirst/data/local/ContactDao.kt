@@ -13,6 +13,9 @@ interface ContactDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertContact(contact: Contact): Long
 
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertContacts(contacts: List<Contact>)
+
     @Query("SELECT * FROM contacts ORDER BY name ASC")
     fun getAllContacts(): LiveData<List<Contact>>
 }

@@ -1,9 +1,11 @@
 package com.finalfirst.viewmodel
 
 import android.app.Application
+import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import com.finalfirst.contacts.ContactsImporter
 import com.finalfirst.data.local.AppDatabase
 import com.finalfirst.data.local.Contact
 import com.finalfirst.data.repository.ContactRepository
@@ -43,9 +45,10 @@ class ContactViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    fun importFromPhone(contacts: List<Contact>) {
+    fun importFromPhone(context: Context) {
         viewModelScope.launch(Dispatchers.IO) {
-            contacts.forEach { repository.insertContact(it) }
+            val contacts = ContactsImporter(context).getPhoneContacts()
+            repository.insertContacts(contacts)
         }
     }
 }
